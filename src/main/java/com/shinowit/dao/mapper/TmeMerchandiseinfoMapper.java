@@ -98,4 +98,7 @@ public interface TmeMerchandiseinfoMapper {
     List<TmeMerchandiseinfo> selectPage(TmeMerchandiseinfoExample example);
 
     String selectMaxPrimaryKeyValue();
+
+
+    List<TmeMerchandiseinfo> selectPageAndExample(TmeMerchandiseinfoExample example);
 }

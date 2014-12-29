@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -14,38 +15,84 @@
     <title>启奥</title>
     <link href="${ctx}/css/style.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="${ctx}/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript">var totalnum = '${list}'</script>
+    <script type="text/javascript"> var list = '${map}'</script>
     <script type="text/javascript">
-
+        var totalnum = '${totalnum}'
+        alert(totalnum);
         $(document).ready(function () {
             $.ajax({
                 type: "GET",
                 url: "/list/list",
-                data: {merchandisename: $("#merchandisename").val(), price: $("#price").val()},
-                dataType: "json",
-                success: function (data) {
-                    $('.hotsale').empty();   //清空hotsale里面的所有内容
-                    var html = '';
-                    $.each(data, function (commentIndex, comment) {
-                        html += '<dl><dt><a href="inner-page.html" target="_new"><img src="${ctx}/images/T1.jpg" width="310" height="310"border="0"/></a></dt><dd>' + comment['merchandisename'] + '</dd><dd><span class="viv1">￥:' + comment['price'] + '.0</span><span class="viv2"><ahref="inner-page.html" target="_new"><img src="${ctx}/images/vivioow_b2.jpg" width="80" height="24" border="0"/></a></span></dd></dl>';
-                    });
-                    $('.hotsale').html(html);
+
+                success: function () {
+                    <%--$('.hotsale').empty();   //清空hotsale里面的所有内容--%>
+                    <%--var html = '';--%>
+                    <%--var html1='';--%>
+
+                    <%--html += '<c:forEach items="${map} var="">" <dl>' +--%>
+                    <%--'<dt>' +--%>
+                    <%--'<a href="inner-page.html" target="_new">' +--%>
+                    <%--'<img src="${ctx}/images/T1.jpg" width="310" height="310"border="0"/></a></dt><dd>' + comment['MerchandiseName'] + '</dd>' +--%>
+                    <%--'<dd><span class="viv1">￥:' + comment['Price'] + '.0</span><span class="viv2"><ahref="inner-page.html" target="_new">' +--%>
+                    <%--'<img src="${ctx}/images/vivioow_b2.jpg" width="80" height="24" border="0"/></a></span></dd></dl></c:forEach>';--%>
+
+                    <%--html1+='<div style=" height: 460px;width:728px"> '+html+'</div>';--%>
+
+                    <%--html1 += '<div  style="text-align: center "class="page">共'+totalnum+'商品 / 分页显示 / 当前第<%=1%>页 / <input type="text" name="pagenum" id="pagenum"value="<%=1%>" style="width: 30px"/> <input type="button"value="GO"onclick="gotopage(<%=2 %>)"/> ' +--%>
+                    <%--' <% if (2 > 1) { %> <a href="<%=request.getContextPath()%>/index.jsp?pagenum=<%=2-1%>" style="color: black;">前一页</a>  <% } %>' +--%>
+                    <%--'<% if (1 < 2) { %> <a href="<%=request.getContextPath()%>/index.jsp?pagenum=<%=1+1%>" style="color: black;">后一页</a>  <% } %> ' +--%>
+                    <%--'<a href="<%=request.getContextPath()%>/index.jsp?pagenum=1" style="color: black;">首页</a> <a href="<%=request.getContextPath()%>/index.jsp?pagenum=<%=1%>" style="color: black;">尾页</a> </div>';--%>
+                    <%--$('.hotsale').html(html1);--%>
                 }
             });
-            $(".merchclass").click(function () {
 
+            <%--$.ajax({--%>
+            <%--type: "GET",--%>
+            <%--url: "/list/list",--%>
+            <%--data: {merchandisename: $("#MerchandiseName").val(), price: $("#Price").val()},--%>
+            <%--dataType: "json",--%>
+            <%--success: function (data) {--%>
+            <%--$('.hotsale').empty();   //清空hotsale里面的所有内容--%>
+            <%--var html = '';--%>
+            <%--var html1='';--%>
+            <%--$.each(data, function (commentIndex, comment) {--%>
+            <%--html += '<dl>' +--%>
+            <%--'<dt>' +--%>
+            <%--'<a href="inner-page.html" target="_new">' +--%>
+            <%--'<img src="${ctx}/images/T1.jpg" width="310" height="310"border="0"/></a></dt><dd>' + comment['MerchandiseName'] + '</dd>' +--%>
+            <%--'<dd><span class="viv1">￥:' + comment['Price'] + '.0</span><span class="viv2"><ahref="inner-page.html" target="_new">' +--%>
+            <%--'<img src="${ctx}/images/vivioow_b2.jpg" width="80" height="24" border="0"/></a></span></dd></dl>';--%>
+            <%--});--%>
+            <%--html1+='<div style=" height: 460px;width:728px"> '+html+'</div>';--%>
+
+            <%--html1 += '<div  style="text-align: center "class="page">共'+totalnum+'商品 / 分页显示 / 当前第<%=1%>页 / <input type="text" name="pagenum" id="pagenum"value="<%=1%>" style="width: 30px"/> <input type="button"value="GO"onclick="gotopage(<%=2 %>)"/> ' +--%>
+            <%--' <% if (2 > 1) { %> <a href="<%=request.getContextPath()%>/index.jsp?pagenum=<%=2-1%>" style="color: black;">前一页</a>  <% } %>' +--%>
+            <%--'<% if (1 < 2) { %> <a href="<%=request.getContextPath()%>/index.jsp?pagenum=<%=1+1%>" style="color: black;">后一页</a>  <% } %> ' +--%>
+            <%--'<a href="<%=request.getContextPath()%>/index.jsp?pagenum=1" style="color: black;">首页</a> <a href="<%=request.getContextPath()%>/index.jsp?pagenum=<%=1%>" style="color: black;">尾页</a> </div>';--%>
+            <%--$('.hotsale').html(html1);--%>
+            <%--}--%>
+            <%--});--%>
+            $(".merchclass").click(function () {
                 var MerchdieclassName = $(this).attr("data")
                 $.ajax({
                     type: "GET",
                     url: "/list/list?name=" + MerchdieclassName,
-                    data: {merchandisename: $("#merchandisename").val(), price: $("#price").val()},
+                    data: {merchandisename: $("#MerchandiseName").val(), price: $("#Price").val()},
                     dataType: "json",
                     success: function (data) {
                         $('.hotsale').empty();   //清空hotsale里面的所有内容
                         var html = '';
+                        var html1 = '';
                         $.each(data, function (commentIndex, comment) {
-                            html += '<dl><dt><a href="inner-page.html" target="_new"><img src="${ctx}/images/T1.jpg" width="310" height="310"border="0"/></a></dt><dd>' + comment['merchandisename'] + '</dd><dd><span class="viv1">￥:' + comment['price'] + '.0</span><span class="viv2"><ahref="inner-page.html" target="_new"><img src="${ctx}/images/vivioow_b2.jpg" width="80" height="24" border="0"/></a></span></dd></dl>';
+                            html += '<dl><dt><a href="inner-page.html" target="_new"><img src="${ctx}/images/T1.jpg" width="310" height="310"border="0"/></a></dt><dd>' + comment['MerchandiseName'] + '</dd><dd><span class="viv1">￥:' + comment['Price'] + '.0</span><span class="viv2"><ahref="inner-page.html" target="_new"><img src="${ctx}/images/vivioow_b2.jpg" width="80" height="24" border="0"/></a></span></dd></dl>';
                         });
-                        $('.hotsale').html(html);
+                        html1 += '<div style=" height: 460px;width:728px"> ' + html + '</div>';
+                        html1 += '<div  style="text-align: center" class="page">共' + totalnum + '商品 / 分页显示 / 当前第<%=1%>页 / <input type="text" name="pagenum" id="pagenum"value="<%=1%>" style="width: 30px"/> <input type="button"value="GO"onclick="gotopage(<%=2 %>)"/> ' +
+                                ' <% if (2 > 1) { %> <a href="<%=request.getContextPath()%>/index.jsp?pagenum=<%=2-1%>" style="color: black;">前一页</a>  <% } %>' +
+                                '<% if (1 < 2) { %> <a href="<%=request.getContextPath()%>/index.jsp?pagenum=<%=1+1%>" style="color: black;">后一页</a>  <% } %> ' +
+                                '<a href="<%=request.getContextPath()%>/index.jsp?pagenum=1" style="color: black;">首页</a> <a href="<%=request.getContextPath()%>/index.jsp?pagenum=<%=1%>" style="color: black;">尾页</a> </div>';
+                        $('.hotsale').html(html1);
                     }
                 })
             })
@@ -64,8 +111,10 @@
 
         <p class="navLeft"></p>
         <ul>
+
             <li><a href="index.html" class="hover">首页</a></li>
-            <li><a href="#">关于我们</a></li>
+            <li>
+                <a href="#">关于我们</a></li>
             <li><a href="#">在线客服</a></li>
             <li class="chart"><a href="../html/chart.html">购物车</a></li>
         </ul>
@@ -83,7 +132,7 @@
     <div id="header">
         <!--nav start -->
         <div class="nav">
-            <ul>
+        <ul>
                 <li class="first"><a href="#">新品上架</a></li>
                 <li><a href="#">坚果炒货</a></li>
                 <li><a href="#">补血大枣</a></li>
@@ -177,55 +226,29 @@ ssssssssss<br/>
             <!--hotsale start -->
             <div class="hotsale">
 
-                <%--<c:forEach items="" var="merchandise">--%>
+                <c:forEach items="${list}" var="merchandise">
 
-                <%--<dl>--%>
-                <%--<dt><a href="inner-page.html" target="_new"><img src="${ctx}/images/T1.jpg" width="310" height="310"--%>
-                <%--border="0"/></a></dt>--%>
-                <%--<dd>实心眼 特级薄皮奶香味 巴旦木 250g</dd>--%>
-                <%--<dd><span class="viv1">￥:18.0</span><span class="viv2"><a href="inner-page.html" target="_new"><img--%>
-                <%--src="${ctx}/images/vivioow_b2.jpg" width="80" height="24" border="0"/></a></span></dd>--%>
-                <%--</dl>  --%>
-                <%--</c:forEach>--%>
+                    <dl>
+                        <dt><a href="inner-page.html" target="_new"><img src="${ctx}/images/T1.jpg" width="310"
+                                                                         height="310"
+                                                                         border="0"/></a></dt>
+                        <dd></dd>
+                        <dd><span class="viv1">￥:18.0</span><span class="viv2"><a href="inner-page.html"
+                                                                                  target="_new"><img
+                                src="${ctx}/images/vivioow_b2.jpg" width="80" height="24" border="0"/></a></span></dd>
+                    </dl>
+                </c:forEach>
 
 
                 <%--<dl>--%>
                 <%--<dt><a href="inner-page.html" target="_new"><img src="${ctx}/images/pro_02.jpg" width="160" height="160" border="0" /></a></dt>--%>
                 <%--<dd>推荐 新疆和田 玉枣 32元 肉厚 相当于昆仑山四星</dd>--%>
                 <%--<dd><span class="viv1">￥:18.0</span><span class="viv2"><a href="inner-page.html" target="_new"><img src="${ctx}/images/vivioow_b2.jpg" width="80" height="24" border="0" /></a></span></dd>--%>
-                <%--</dl>--%>
-                <%--<dl>--%>
-                <%--<dt><a href="inner-page.html" target="_new"><img src="${ctx}/images/pro_03.jpg" width="160" height="160" border="0" /></a></dt>--%>
-                <%--<dd>推荐 新疆和田 玉枣 32元 肉厚 相当于昆仑山四星</dd>--%>
-                <%--<dd><span class="viv1">￥:18.0</span><span class="viv2"><a href="inner-page.html" target="_new"><img src="${ctx}/images/vivioow_b2.jpg" width="80" height="24" border="0" /></a></span></dd>--%>
-                <%--</dl>--%>
-                <%--<dl>--%>
-                <%--<dt><a href="inner-page.html" target="_new"><img src="${ctx}/images/pro_04.jpg" width="160" height="160" border="0" /></a></dt>--%>
-                <%--<dd>推荐 新疆和田 玉枣 32元 肉厚 相当于昆仑山四星</dd>--%>
-                <%--<dd><span class="viv1">￥:18.0</span><span class="viv2"><a href="inner-page.html" target="_new"><img src="${ctx}/images/vivioow_b2.jpg" width="80" height="24" border="0" /></a></span></dd>--%>
-                <%--</dl>--%>
-                <%--<dl>--%>
-                <%--<dt><a href="inner-page.html" target="_new"><img src="${ctx}/images/pro_05.jpg" width="160" height="160" border="0" /></a></dt>--%>
-                <%--<dd>推荐 新疆和田 玉枣 32元 肉厚 相当于昆仑山四星</dd>--%>
-                <%--<dd><span class="viv1">￥:18.0</span><span class="viv2"><a href="inner-page.html" target="_new"><img src="${ctx}/images/vivioow_b2.jpg" width="80" height="24" border="0" /></a></span></dd>--%>
-                <%--</dl>--%>
-                <%--<dl>--%>
-                <%--<dt><a href="inner-page.html" target="_new"><img src="${ctx}/images/pro_06.jpg" width="160" height="160" border="0" /></a></dt>--%>
-                <%--<dd>推荐 新疆和田 玉枣 32元 肉厚 相当于昆仑山四星</dd>--%>
-                <%--<dd><span class="viv1">￥:18.0</span><span class="viv2"><a href="inner-page.html" target="_new"><img src="${ctx}/images/vivioow_b2.jpg" width="80" height="24" border="0" /></a></span></dd>--%>
-                <%--</dl>--%>
-                <%--<dl>--%>
-                <%--<dt><a href="inner-page.html" target="_new"><img src="${ctx}/images/pro_07.jpg" width="160" height="160" border="0" /></a></dt>--%>
-                <%--<dd>推荐 新疆和田 玉枣 32元 肉厚 相当于昆仑山四星</dd>--%>
-                <%--<dd><span class="viv1">￥:18.0</span><span class="viv2"><a href="inner-page.html" target="_new"><img src="${ctx}/images/vivioow_b2.jpg" width="80" height="24" border="0" /></a></span></dd>--%>
-                <%--</dl>--%>
-                <%--<dl>--%>
-                <%--<dt><a href="inner-page.html" target="_new"><img src="${ctx}/images/pro_08.jpg" width="160" height="160" border="0" /></a></dt>--%>
-                <%--<dd>推荐 新疆和田 玉枣 32元 肉厚 相当于昆仑山四星</dd>--%>
-                <%--<dd><span class="viv1">￥:18.0</span><span class="viv2"><a href="inner-page.html" target="_new"><img src="${ctx}/images/vivioow_b2.jpg" width="80" height="24" border="0" /></a></span></dd>--%>
-                <%--</dl>--%>
+
                 <br class="spacer"/>
             </div>
+
+            <div id="cfooter"></div>
             <!--hotsale end -->
         </div>
         <!--mid end -->

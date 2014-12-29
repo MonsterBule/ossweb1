@@ -449,4 +449,22 @@
     <select id="selectMaxPrimaryKeyValue" resultType="java.lang.String">
         select max(MerchandiseID) from TMe_MerchandiseInfo
     </select>
+
+
+    <select id="selectPageAndExample" resultMap="selectPageResult"
+            parameterType="com.shinowit.entity.TmeMerchandiseinfoExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from TMe_MerchandiseInfo
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+        limit ${skipRecordCount}, ${pageSize}
+    </select>
 </mapper>

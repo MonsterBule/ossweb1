@@ -39,7 +39,6 @@ public class LoginController {
                 model.addAttribute("right", "登陆成功");
                 return "redirect:/mercahndiseclass/list";
 
-
             } else {
                 model.addAttribute("error", "用户名密码不匹配");
                 return "/login";

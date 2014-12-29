@@ -13,12 +13,15 @@
     <title></title>
 </head>
 <body>
-<form:form modelAttribute="user" action="${ctx}/user/new" method="post">
-    <label>用户名:</label> <form:input path="username"/><form:errors path="username" cssClass="errorClass"></form:errors>
-    <label>密码:</label> <form:password path="userpass"/><form:errors path="userpass" cssClass="errorClass"></form:errors>
-    <label>年龄:</label> <form:input path="age"/><form:errors path="age" cssClass="errorClass"></form:errors>
-    <input type="submit" value="提交"/>
-</form:form>
+<%--<form:form modelAttribute="user" action="${ctx}/user/new" method="post">--%>
+<%--<label>用户名:</label> <form:input path="username"/><form:errors path="username" cssClass="errorClass"></form:errors>--%>
+<%--<label>密码:</label> <form:password path="userpass"/><form:errors path="userpass" cssClass="errorClass"></form:errors>--%>
+<%--<label>年龄:</label> <form:input path="age"/><form:errors path="age" cssClass="errorClass"></form:errors>--%>
+<%--<input type="submit" value="提交"/>--%>
+<%--</form:form>--%>
+${totalnum}
+<c:forEach items="" var="">
 
+</c:forEach>
 </body>
 </html>
