@@ -29,7 +29,7 @@ public class LoginController {
         ex.createCriteria().andPwdEqualTo(user.getPwd());
         if ((user.getUsername() != null) && (user.getUsername().trim().length() > 0) && ((user.getPwd() != null) && (user.getPwd().trim().length() > 0))) {
             if (tbadao.selectByExample(ex).size() > 0) {
-
+                return "redirect:/list/list";
             }
         }
         return "";
