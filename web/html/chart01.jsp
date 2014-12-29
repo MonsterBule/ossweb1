@@ -55,7 +55,8 @@
         <li><a href="#">台湾牛轧糖</a></li>
         <li><a href="#">蜜饯果脯</a></li>
         <li class="last">
-            <div id="welcome" class="welmsgdiv2"><span>您好，欢迎光临果果香。</span><a href="../index/login.html">登录</a><span
+            <div id="welcome" class="welmsgdiv2"><span>您好，欢迎光临果果香。</span><a
+                    href="../WEB-INF/views/login.html">登录</a><span
                     class="Lloginfg">&nbsp;</span><a href="../index/reg.html">注册</a></div>
         </li>
     </ul>
@@ -74,37 +75,37 @@
 <!--guide01 end -->
 <!--body start -->
 <div id="body">
-    <div id="Login">
-        <DIV id="gwc">
-            <div id="step_" align="left">结算步骤: <span class="" id="shoppingstep_0">1.登录注册</span> &gt;&gt; <span
-                    class="shoppingstepcontrol" id="shoppingstep_2">2.填写核对订单信息</span> &gt;&gt; <span class=""
-                                                                                                     id="shoppingstep_3">3.提交订单</span>
-            </div>
-            <div id="onEdit"></div>
-            <DIV class="title"><SPAN id="transferSpan"></SPAN></DIV>
-            <DIV id="divPointError" style="DISPLAY: none; FLOAT: left; MARGIN: 0px 0px 10px">
-                <DIV class="pointErrorMsg">您目前的积分为：<SPAN id="myPointNumber">0</SPAN>分，本次购物需支付：<SPAN
-                        id="needPointNumber">0</SPAN>分，请修改购物车中的积分换购产品。
-                </DIV>
-                <IMG id="imgPointError"
-                     src="${ctx}/images/jifenbuzhu.gif" useMap=#Map border=0>
-                <MAP id="Map"
-                     name=Map>
-                    <AREA shape=RECT coords=962,9,972,19
-                          href="javascript:ClosePointError();">
-                </MAP>
-            </DIV>
-            <DIV id=OffProductList></DIV>
-            <TABLE cellSpacing=0 cellPadding=0 width=100% border=0>
-                <TBODY>
-                <TR>
-                    <TD vAlign=center align=left><SPAN
-                            id="TenPayNotice"></SPAN></TD>
-                </TR>
-                </TBODY>
-            </TABLE>
-            <div id="AddressContent">
-                <!--begin-->
+<div id="Login">
+<DIV id="gwc">
+<div id="step_" align="left">结算步骤: <span class="" id="shoppingstep_0">1.登录注册</span> &gt;&gt; <span
+        class="shoppingstepcontrol" id="shoppingstep_2">2.填写核对订单信息</span> &gt;&gt; <span class=""
+                                                                                         id="shoppingstep_3">3.提交订单</span>
+</div>
+<div id="onEdit"></div>
+<DIV class="title"><SPAN id="transferSpan"></SPAN></DIV>
+<DIV id="divPointError" style="DISPLAY: none; FLOAT: left; MARGIN: 0px 0px 10px">
+    <DIV class="pointErrorMsg">您目前的积分为：<SPAN id="myPointNumber">0</SPAN>分，本次购物需支付：<SPAN
+            id="needPointNumber">0</SPAN>分，请修改购物车中的积分换购产品。
+    </DIV>
+    <IMG id="imgPointError"
+         src="${ctx}/images/jifenbuzhu.gif" useMap=#Map border=0>
+    <MAP id="Map"
+         name=Map>
+        <AREA shape=RECT coords=962,9,972,19
+              href="javascript:ClosePointError();">
+    </MAP>
+</DIV>
+<DIV id=OffProductList></DIV>
+<TABLE cellSpacing=0 cellPadding=0 width=100% border=0>
+    <TBODY>
+    <TR>
+        <TD vAlign=center align=left><SPAN
+                id="TenPayNotice"></SPAN></TD>
+    </TR>
+    </TBODY>
+</TABLE>
+<div id="AddressContent">
+    <!--begin-->
   <span id="Label_AddressList">
     <div class="bxSty4">
         <table width="100%" cellpadding="0" cellspacing="0" class="addDivTab tabSty01">
@@ -270,23 +271,23 @@
         </div>
     </div>
     </span><!--end-->
-            </div>
+</div>
 <SPAN
         id="leavelNotMustPresentLsit"></SPAN>
 
-            <DIV class="sty006 reusableColor3" align=left>您在购物过程中有任何疑问，请查阅 <A
-                    href="#" target=_blank><SPAN
-                    class="reusableColor1">帮助中心</SPAN></A> 或 <A href="#"
-                                                                target=_blank><SPAN
-                    class="reusableColor1">联系客服</SPAN></A></DIV>
-            <DL class="dobuleBorder" style="display:none;">
-                <DT><STRONG>关于"我的购物车"</STRONG></DT>
-                <DD>·为方便您提交订单，您添加至"我的购物车"中已经选择的、尚未提交订单的商品清单，我们将为您保留90天。<BR>·在商品保留期间，您所选择商品的价格、优惠政策、库存、配送时间等信息可能会有所变化，请以网页最新信息为准。
-                </DD>
-            </DL>
-        </DIV>
-    </div>
-    <br class="spacer"/>
+<DIV class="sty006 reusableColor3" align=left>您在购物过程中有任何疑问，请查阅 <A
+        href="#" target=_blank><SPAN
+        class="reusableColor1">帮助中心</SPAN></A> 或 <A href="#"
+                                                    target=_blank><SPAN
+        class="reusableColor1">联系客服</SPAN></A></DIV>
+<DL class="dobuleBorder" style="display:none;">
+    <DT><STRONG>关于"我的购物车"</STRONG></DT>
+    <DD>·为方便您提交订单，您添加至"我的购物车"中已经选择的、尚未提交订单的商品清单，我们将为您保留90天。<BR>·在商品保留期间，您所选择商品的价格、优惠政策、库存、配送时间等信息可能会有所变化，请以网页最新信息为准。
+    </DD>
+</DL>
+</DIV>
+</div>
+<br class="spacer"/>
 </div>
 <!--footer start -->
 <div id="footer">

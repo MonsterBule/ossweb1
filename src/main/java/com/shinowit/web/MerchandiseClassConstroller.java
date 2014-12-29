@@ -22,7 +22,6 @@ public class MerchandiseClassConstroller {
 
     @RequestMapping("list")
     public String list(Model model) {
-        //  List<Map<String, Object>> list=new ArrayList<Map<String, Object>>();
         List<Map<String, Object>> list = jt.queryForList("select top(5)* from TMe_MerchandiseCInfo ");
         model.addAttribute("merchandiseclss", list);
         return "index";

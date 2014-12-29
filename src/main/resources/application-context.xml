@@ -89,9 +89,9 @@
         <!-- 端口号 -->
         <property name="port" value="587"/>
         <!-- 用户名 -->
-        <property name="username" value="724964028@qq.com"/>
+        <property name="username" value="asa@qq.com"/>
         <!--  密码   -->
-        <property name="password" value="woaiwojia1994"/>
+        <property name="password" value="wadoad"/>
         <!-- SMTP服务器验证 -->
         <property name="javaMailProperties">
             <props>
@@ -130,7 +130,7 @@
     <bean id="simpleHtmlMail" class="com.shinowit.framework.Email.SendHtmlMail">
         <property name="server" value="smtp.qq.com"/>
         <property name="sendEamil" value="724964028@qq.com"/>
-        <property name="pass" value="woaiwojia1994"/>
+        <property name="pass" value="j555555"/>
     </bean>
 </beans>
 

@@ -66,7 +66,7 @@
             <li><a href="#">蜜饯果脯</a></li>
             <li class="last">
                 <div id="welcome" class="welmsgdiv2"><span>您好，欢迎光临果果香。</span><a
-                        href="../../index/login.html">登录</a><span
+                        href="login.html">登录</a><span
                         class="Lloginfg">&nbsp;</span><a href="../../index/reg.html">注册</a></div>
             </li>
         </ul>
