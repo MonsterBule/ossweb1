@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.sql.Types;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -61,14 +63,15 @@ public class MerchandiseListController {
 
     @RequestMapping("/list")
     @ResponseBody
-    public List<Map<String, Object>> list1(@ModelAttribute TmeMerchandiseinfo tmemerchandise, @RequestParam(value = "name", required = false) String name, Model model, @RequestParam(value = "page", required = false) Integer page) {
+    public Map<String, Object> list1(@ModelAttribute TmeMerchandiseinfo tmemerchandise, @RequestParam(value = "name", required = false) String name, Model model, @RequestParam(value = "page", required = false) Integer page, HttpServletRequest request) {
+        Map<String, Object> result_map = new HashMap<String, Object>();
         if (page == null) {
-            page = 0;
+            page = 1;
         }
         String sql = "SELECT TOP 8 * FROM ( SELECT ROW_NUMBER() OVER (ORDER BY id) AS RowNumber,* FROM TMe_MerchandiseInfo) A WHERE RowNumber > ?";
         String sql2 = "select count(*)as totalnum from TMe_MerchandiseInfo where 1=1";
-        List<Map<String, Object>> map;
-        int a = 0;
+        List<Map<String, Object>> data_list;
+        int page_total = 0;
         if (name != null) {
             try {
                 byte[] bb = name.getBytes("ISO-8859-1");
@@ -76,34 +79,35 @@ public class MerchandiseListController {
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
-            sql += " and UnitID=?";
+            sql = "SELECT TOP 8 * FROM ( SELECT ROW_NUMBER() OVER (ORDER BY id) AS RowNumber,* FROM TMe_MerchandiseInfo where UnitID=?) A WHERE RowNumber > ?";
             sql2 += " and UnitID=?";
-            model.addAttribute("totalnum", a);
+            model.addAttribute("totalnum", page_total);
             TmeMerchandisecinfoExample ex = new TmeMerchandisecinfoExample();
             ex.createCriteria().andMerchandisecnameEqualTo(name);
-            String s = merchandisecdao.selectByExample(ex).get(0).getMerchandisecid();
-            map = jt.queryForList(sql, new Object[]{page, s}, new int[]{Types.INTEGER, Types.VARCHAR});
-            a = jt.queryForInt(sql2, new Object[]{s}, new int[]{Types.INTEGER});
-            return map;
+            String merchandisecID = merchandisecdao.selectByExample(ex).get(0).getMerchandisecid();
+            data_list = jt.queryForList(sql, new Object[]{merchandisecID, (page - 1) * 8}, new int[]{Types.VARCHAR, Types.INTEGER});
+            result_map.put("data_list", data_list);
+            page_total = jt.queryForInt(sql2, new Object[]{merchandisecID}, new int[]{Types.INTEGER});
+            result_map.put("num", page_total);
+            return result_map;
         }
-        a = jt.queryForInt(sql2);
-        model.addAttribute("totalnum", a);
-        map = jt.queryForList(sql, new Object[]{1}, new int[]{Types.INTEGER});
-        return map;
+        page_total = jt.queryForInt(sql2);
+        data_list = jt.queryForList(sql, new Object[]{(page - 1) * 8}, new int[]{Types.INTEGER});
+        result_map.put("data_list", data_list);
+        result_map.put("num", page_total);
+        return result_map;
     }
-
     @RequestMapping("/list1")
-    public Model list2(Model model) {
+    public String list2(Model model) {
         String sql2 = "select count(*)as totalnum from TMe_MerchandiseInfo where 1=1";
         int a = jt.queryForInt(sql2);
         model.addAttribute("totalnum", a);
-        return model;
+        return "test";
     }
 
 
     @RequestMapping("/list3")
-
-    public void list(@ModelAttribute TmeMerchandiseinfo tmemerchandise, @RequestParam(value = "name", required = false) String name, Model model, @RequestParam(value = "page", required = false) Integer page) {
+    public Model list(@ModelAttribute TmeMerchandiseinfo tmemerchandise, @RequestParam(value = "name", required = false) String name, Model model, @RequestParam(value = "page", required = false) Integer page) {
         if (page == null) {
             page = 0;
         }
@@ -125,17 +129,19 @@ public class MerchandiseListController {
             ex.createCriteria().andMerchandisecnameEqualTo(name);
             String s = merchandisecdao.selectByExample(ex).get(0).getMerchandisecid();
             map = jt.queryForList(sql, new Object[]{page, s}, new int[]{Types.INTEGER, Types.VARCHAR});
+
             a = jt.queryForInt(sql2, new Object[]{s}, new int[]{Types.INTEGER});
 
             model.addAttribute("list", map);
             model.addAttribute("num", a);
-            return;
+            return model;
         }
         a = jt.queryForInt(sql2);
         model.addAttribute("totalnum", a);
         map = jt.queryForList(sql, new Object[]{1}, new int[]{Types.INTEGER});
+
         model.addAttribute("list", map);
         model.addAttribute("num", a);
-        return;
+        return model;
     }
 }

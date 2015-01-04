@@ -20,8 +20,8 @@
 <%--<input type="submit" value="提交"/>--%>
 <%--</form:form>--%>
 ${totalnum}
-<c:forEach items="" var="">
-
+<c:forEach items="${totalnum}" var="a">
+    ${a.totalnum}
 </c:forEach>
 </body>
 </html>

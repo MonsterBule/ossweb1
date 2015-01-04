@@ -15,86 +15,170 @@
     <title>启奥</title>
     <link href="${ctx}/css/style.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="${ctx}/js/jquery-1.9.1.min.js"></script>
-    <script type="text/javascript">var totalnum = '${list}'</script>
-    <script type="text/javascript"> var list = '${map}'</script>
     <script type="text/javascript">
-        var totalnum = '${totalnum}'
-        alert(totalnum);
         $(document).ready(function () {
-            $.ajax({
-                type: "GET",
-                url: "/list/list",
+//         var a=   function sleep(numberMillis) {
+//                var now = new Date();
+//                var exitTime = now.getTime() + numberMillis;
+//                while (true) {
+//                    now = new Date();
+//                    if (now.getTime() > exitTime)
+//                        alert("aaaaaaaa")
+//                        break;
+//
+//                }
+//            }
+//            a(1000);
 
-                success: function () {
-                    <%--$('.hotsale').empty();   //清空hotsale里面的所有内容--%>
-                    <%--var html = '';--%>
-                    <%--var html1='';--%>
-
-                    <%--html += '<c:forEach items="${map} var="">" <dl>' +--%>
-                    <%--'<dt>' +--%>
-                    <%--'<a href="inner-page.html" target="_new">' +--%>
-                    <%--'<img src="${ctx}/images/T1.jpg" width="310" height="310"border="0"/></a></dt><dd>' + comment['MerchandiseName'] + '</dd>' +--%>
-                    <%--'<dd><span class="viv1">￥:' + comment['Price'] + '.0</span><span class="viv2"><ahref="inner-page.html" target="_new">' +--%>
-                    <%--'<img src="${ctx}/images/vivioow_b2.jpg" width="80" height="24" border="0"/></a></span></dd></dl></c:forEach>';--%>
-
-                    <%--html1+='<div style=" height: 460px;width:728px"> '+html+'</div>';--%>
-
-                    <%--html1 += '<div  style="text-align: center "class="page">共'+totalnum+'商品 / 分页显示 / 当前第<%=1%>页 / <input type="text" name="pagenum" id="pagenum"value="<%=1%>" style="width: 30px"/> <input type="button"value="GO"onclick="gotopage(<%=2 %>)"/> ' +--%>
-                    <%--' <% if (2 > 1) { %> <a href="<%=request.getContextPath()%>/index.jsp?pagenum=<%=2-1%>" style="color: black;">前一页</a>  <% } %>' +--%>
-                    <%--'<% if (1 < 2) { %> <a href="<%=request.getContextPath()%>/index.jsp?pagenum=<%=1+1%>" style="color: black;">后一页</a>  <% } %> ' +--%>
-                    <%--'<a href="<%=request.getContextPath()%>/index.jsp?pagenum=1" style="color: black;">首页</a> <a href="<%=request.getContextPath()%>/index.jsp?pagenum=<%=1%>" style="color: black;">尾页</a> </div>';--%>
-                    <%--$('.hotsale').html(html1);--%>
-                }
-            });
-
-            <%--$.ajax({--%>
-            <%--type: "GET",--%>
-            <%--url: "/list/list",--%>
-            <%--data: {merchandisename: $("#MerchandiseName").val(), price: $("#Price").val()},--%>
-            <%--dataType: "json",--%>
-            <%--success: function (data) {--%>
-            <%--$('.hotsale').empty();   //清空hotsale里面的所有内容--%>
-            <%--var html = '';--%>
-            <%--var html1='';--%>
-            <%--$.each(data, function (commentIndex, comment) {--%>
-            <%--html += '<dl>' +--%>
-            <%--'<dt>' +--%>
-            <%--'<a href="inner-page.html" target="_new">' +--%>
-            <%--'<img src="${ctx}/images/T1.jpg" width="310" height="310"border="0"/></a></dt><dd>' + comment['MerchandiseName'] + '</dd>' +--%>
-            <%--'<dd><span class="viv1">￥:' + comment['Price'] + '.0</span><span class="viv2"><ahref="inner-page.html" target="_new">' +--%>
-            <%--'<img src="${ctx}/images/vivioow_b2.jpg" width="80" height="24" border="0"/></a></span></dd></dl>';--%>
-            <%--});--%>
-            <%--html1+='<div style=" height: 460px;width:728px"> '+html+'</div>';--%>
-
-            <%--html1 += '<div  style="text-align: center "class="page">共'+totalnum+'商品 / 分页显示 / 当前第<%=1%>页 / <input type="text" name="pagenum" id="pagenum"value="<%=1%>" style="width: 30px"/> <input type="button"value="GO"onclick="gotopage(<%=2 %>)"/> ' +--%>
-            <%--' <% if (2 > 1) { %> <a href="<%=request.getContextPath()%>/index.jsp?pagenum=<%=2-1%>" style="color: black;">前一页</a>  <% } %>' +--%>
-            <%--'<% if (1 < 2) { %> <a href="<%=request.getContextPath()%>/index.jsp?pagenum=<%=1+1%>" style="color: black;">后一页</a>  <% } %> ' +--%>
-            <%--'<a href="<%=request.getContextPath()%>/index.jsp?pagenum=1" style="color: black;">首页</a> <a href="<%=request.getContextPath()%>/index.jsp?pagenum=<%=1%>" style="color: black;">尾页</a> </div>';--%>
-            <%--$('.hotsale').html(html1);--%>
-            <%--}--%>
-            <%--});--%>
-            $(".merchclass").click(function () {
-                var MerchdieclassName = $(this).attr("data")
+//            setInterval (   function showTime()
+//                    {
+//                        var today = new Date();
+//                        alert("时间: " + today.toString ());
+//                    }
+//                    , 5000);
+            var pageIndex = '';
+            var aa = function (pageIndex) {
                 $.ajax({
                     type: "GET",
-                    url: "/list/list?name=" + MerchdieclassName,
+                    url: "/list/list?page=" + pageIndex,
                     data: {merchandisename: $("#MerchandiseName").val(), price: $("#Price").val()},
                     dataType: "json",
                     success: function (data) {
                         $('.hotsale').empty();   //清空hotsale里面的所有内容
                         var html = '';
                         var html1 = '';
-                        $.each(data, function (commentIndex, comment) {
-                            html += '<dl><dt><a href="inner-page.html" target="_new"><img src="${ctx}/images/T1.jpg" width="310" height="310"border="0"/></a></dt><dd>' + comment['MerchandiseName'] + '</dd><dd><span class="viv1">￥:' + comment['Price'] + '.0</span><span class="viv2"><ahref="inner-page.html" target="_new"><img src="${ctx}/images/vivioow_b2.jpg" width="80" height="24" border="0"/></a></span></dd></dl>';
+                        var a = data.num;
+                        var p = Math.ceil(a / 8);
+                        if (pageIndex == 0) {
+                            pageIndex++;
+                        }
+                        var newpage = 1;
+                        $.each(data.data_list, function (commentIndex, comment) {
+                            html += '<dl>' +
+                                    '<dt>' +
+                                    '<a href="${ctx}/merchendise/info?merchandiseName=' + comment['MerchandiseName'] + ' "  target="_new">' +
+                                    '<img src="${ctx}/images/T1.jpg" width="310" height="310"border="0"/></a></dt><dd>' + comment['MerchandiseName'] + '</dd>' +
+                                    '<dd><span class="viv1">￥:' + comment['Price'] + '.0</span><span class="viv2"><a href="" target="_new">' +
+                                    '<img src="${ctx}/images/vivioow_b2.jpg" width="80" height="24" border="0"/></a></span></dd></dl>';
                         });
                         html1 += '<div style=" height: 460px;width:728px"> ' + html + '</div>';
-                        html1 += '<div  style="text-align: center" class="page">共' + totalnum + '商品 / 分页显示 / 当前第<%=1%>页 / <input type="text" name="pagenum" id="pagenum"value="<%=1%>" style="width: 30px"/> <input type="button"value="GO"onclick="gotopage(<%=2 %>)"/> ' +
-                                ' <% if (2 > 1) { %> <a href="<%=request.getContextPath()%>/index.jsp?pagenum=<%=2-1%>" style="color: black;">前一页</a>  <% } %>' +
-                                '<% if (1 < 2) { %> <a href="<%=request.getContextPath()%>/index.jsp?pagenum=<%=1+1%>" style="color: black;">后一页</a>  <% } %> ' +
-                                '<a href="<%=request.getContextPath()%>/index.jsp?pagenum=1" style="color: black;">首页</a> <a href="<%=request.getContextPath()%>/index.jsp?pagenum=<%=1%>" style="color: black;">尾页</a> </div>';
+
+                        html1 += '<div  style="text-align: center "class="page">共' + a + '件商品 / 分页' + p + '显示 / 当前第' + pageIndex + '页 / <input class="inputpage" type="text" value="1" name="pagenum" id="pagenum" style="width: 30px"/> <input class="button1" type="button"value="GO"/> '
+
+                        if (1 < pageIndex) {
+                            html1 += ' <a class="pageclass"  data="pagereduce" style="color: black;">前一页</a> '
+                        }
+                        if (p > pageIndex) {
+                            html1 += ' <a class="pageclass" data="pageadd" style="color: black;">后一页</a> '
+                        }
+                        html1 += '<a  class="pageclass" data="1" style="color: black;">首页</a> <a  class="pageclass" data=' + p + ' style="color: black;">尾页</a> </div>';
                         $('.hotsale').html(html1);
+
+                        $('.button1').on('click', function () {
+                            var inputpage = $('.inputpage').val();
+                            if (inputpage > p) {
+                                alert("输入的页数超出范围！！！");
+                                return;
+                            }
+                            if (isNaN(inputpage)) {
+                                alert("请输入一个有效的数字");
+                                return;
+                            }
+                            aa(inputpage);
+
+                        });
+                        $('.pageclass').on('click', function () {
+                            var Operation = $(this).attr("data")
+                            if (Operation == 'pagereduce') {
+                                pageIndex--;
+                                aa(pageIndex);
+                                return;
+                            }
+                            if (Operation == 'pageadd') {
+                                pageIndex++;
+                                aa(pageIndex);
+                                return;
+                            }
+                            pageIndex = Operation;
+                            aa(pageIndex);
+                        });
                     }
-                })
+                });
+            };
+            aa(pageIndex);
+            $(".merchclass").click(function () {
+                var MerchdieclassName = $(this).attr("data")
+                var bb = function (pageIndex) {
+                    $.ajax({
+                        type: "GET",
+                        url: "/list/list?name=" + MerchdieclassName + '&page=' + pageIndex,
+                        data: {merchandisename: $("#MerchandiseName").val(), price: $("#Price").val()},
+                        dataType: "json",
+                        success: function (data) {
+                            $('.hotsale').empty();   //清空hotsale里面的所有内容
+                            var html = '';
+                            var html1 = '';
+                            var a = data.num;
+                            var p = Math.ceil(a / 8);
+                            if (pageIndex == 0) {
+                                pageIndex++;
+                            }
+                            var newpage = 1;
+                            $.each(data.data_list, function (commentIndex, comment) {
+                                html += '<dl>' +
+                                        '<dt>' +
+                                        '<a href="${ctx}/merchendise/info?merchandiseName=' + comment['MerchandiseName'] + '" target="_new">' +
+                                        '<img src="${ctx}/images/T1.jpg" width="310" height="310"border="0"/></a></dt><dd>' + comment['MerchandiseName'] + '</dd>' +
+                                        '<dd><span class="viv1">￥:' + comment['Price'] + '.0</span><span class="viv2"><a href="" target="_new">' +
+                                        '<img src="${ctx}/images/vivioow_b2.jpg" width="80" height="24" border="0"/></a></span></dd></dl>';
+                            });
+                            html1 += '<div style=" height: 460px;width:728px"> ' + html + '</div>';
+
+                            html1 += '<div  style="text-align: center "class="page">共' + a + '件商品 / 分页' + p + '显示 / 当前第' + pageIndex + '页 / <input class="inputpage" type="text" value="1" name="pagenum" id="pagenum" style="width: 30px"/> <input class="button1" type="button"value="GO"/> '
+                            if (1 < pageIndex) {
+                                html1 += ' <a class="pageclass"  data="pagereduce" style="color: black;">前一页</a> '
+                            }
+                            if (p > pageIndex) {
+                                html1 += ' <a class="pageclass" data="pageadd" style="color: black;">后一页</a> '
+                            }
+                            html1 += '<a  class="pageclass" data="1" style="color: black;">首页</a> <a  class="pageclass" data=' + p + ' style="color: black;">尾页</a> </div>';
+                            $('.hotsale').html(html1);
+
+
+                            $('.button1').on('click', function () {
+                                var inputpage = $('.inputpage').val();
+                                if (inputpage > p) {
+                                    alert("输入的页数超出范围！！！");
+                                    return;
+                                }
+                                if (isNaN(inputpage)) {
+                                    alert("请输入一个有效的数字");
+                                    return;
+                                }
+                                bb(inputpage);
+
+                            });
+                            $('.pageclass').on('click', function () {
+                                var Operation = $(this).attr("data")
+                                if (Operation == 'pagereduce') {
+                                    pageIndex--;
+                                    bb(pageIndex);
+                                    return;
+                                }
+                                if (Operation == 'pageadd') {
+                                    pageIndex++;
+                                    bb(pageIndex);
+                                    return;
+                                }
+                                pageIndex = Operation;
+                                bb(pageIndex);
+
+
+                            });
+                        }
+                    })
+                };
+                bb(pageIndex);
             })
         })
     </script>
@@ -132,8 +216,8 @@
     <div id="header">
         <!--nav start -->
         <div class="nav">
-        <ul>
-                <li class="first"><a href="#">新品上架</a></li>
+            <ul>
+                <li class="first"><a href="#" data="">新品上架</a></li>
                 <li><a href="#">坚果炒货</a></li>
                 <li><a href="#">补血大枣</a></li>
                 <li><a href="#">经典肉类</a></li>
@@ -186,7 +270,7 @@
                 <ul>
 
                     <c:forEach items="${merchandiseclss}" var="mer">
-                        <li><a class="merchclass" data="${mer.MerchandiseCName}" href="#">${mer.MerchandiseCName} </a>
+                        <li><a class="merchclass" data="${mer.MerchandiseCName}">${mer.MerchandiseCName} </a>
                         </li>
                     </c:forEach>
                 </ul>
@@ -225,25 +309,6 @@ ssssssssss<br/>
             <!--hotsale_ad end -->
             <!--hotsale start -->
             <div class="hotsale">
-
-                <c:forEach items="${list}" var="merchandise">
-
-                    <dl>
-                        <dt><a href="inner-page.html" target="_new"><img src="${ctx}/images/T1.jpg" width="310"
-                                                                         height="310"
-                                                                         border="0"/></a></dt>
-                        <dd></dd>
-                        <dd><span class="viv1">￥:18.0</span><span class="viv2"><a href="inner-page.html"
-                                                                                  target="_new"><img
-                                src="${ctx}/images/vivioow_b2.jpg" width="80" height="24" border="0"/></a></span></dd>
-                    </dl>
-                </c:forEach>
-
-
-                <%--<dl>--%>
-                <%--<dt><a href="inner-page.html" target="_new"><img src="${ctx}/images/pro_02.jpg" width="160" height="160" border="0" /></a></dt>--%>
-                <%--<dd>推荐 新疆和田 玉枣 32元 肉厚 相当于昆仑山四星</dd>--%>
-                <%--<dd><span class="viv1">￥:18.0</span><span class="viv2"><a href="inner-page.html" target="_new"><img src="${ctx}/images/vivioow_b2.jpg" width="80" height="24" border="0" /></a></span></dd>--%>
 
                 <br class="spacer"/>
             </div>
