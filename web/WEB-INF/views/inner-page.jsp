@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -14,6 +15,68 @@
     <title>启奥</title>
     <link href="${ctx}/css/style.css" rel="stylesheet" type="text/css"/>
     <link href="${ctx}/css/innerstyle.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="${ctx}/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                        type: 'GET',
+                        url: '${ctx}/mercahndiseclass/list2',
+                        dataType: 'json',
+                        success: function (data) {
+                            $('.ulclass').empty();
+                            var html = '';
+                            $.each(data, function (commentIndex, comment) {
+                                html += '<li><a href="#" class="merchclass" data=' + comment['MerchandiseCName'] + '>' + comment['MerchandiseCName'] + '</a></li>';
+                            });
+                            $('.ulclass').html(html);
+                            $('.merchclass').click(function () {
+                                var MerchdieclassName = $(this).attr('data');
+                                window.location.href = "<%=request.getContextPath()%>/mercahndiseclass/list?name=" + MerchdieclassName;
+                            });
+                        }
+                    }
+            );
+            var num = '';
+            var stock = '';
+            $('.jian').click(function () {
+                num = $('.inputnum').val(parseInt($('.inputnum').val()) - 1);
+                if ((parseInt($('.inputnum').val())) < 1) {
+                    parseInt($('.inputnum').val(1));
+                }
+            });
+            $('.add').click(function () {
+                stock = $('.stocknum').attr('data');
+                if (isNaN(stock)) {
+                    alert("商品已售完");
+                } else {
+                    num = $('.inputnum').val(parseInt($('.inputnum').val()) + 1);
+                    if ((parseInt($('.inputnum').val())) > stock) {
+                        parseInt($('.inputnum').val(stock))
+                    }
+                }
+            });
+            $('.goumai').click(function () {
+            });
+            $('.gouwuche').click(function () {
+                $.ajax({
+                    type: "POST",
+                    url: '${ctx}/chart/insert',
+                    data: {
+                        price: $('.price').attr('data'),
+                        name: $('.name').attr('data'),
+                        num: $('.inputnum').val()
+                    },
+                    dataType: "Text",
+                    success: function () {
+                        alert("添加成功")
+                    },
+                    error: function () {
+                        alert("内部错误")
+                    }
+                });
+            });
+        });
+    </script>
 </head>
 <body>
 <div id="box">
@@ -85,17 +148,8 @@
         <!--left start -->
         <div id="left">
             <h2>商品分类</h2>
-            <ul>
-                <li><a href="#">特级椒盐味</a></li>
-                <li><a href="#">纸皮巴旦木龙果</a></li>
-                <li><a href="#">壳杏仁 23元/500克 </a></li>
-                <li><a href="#">纸皮巴旦木龙果</a></li>
-                <li><a href="#">壳杏仁 23元/500克 </a></li>
-                <li><a href="#">纸皮巴旦木龙果</a></li>
-                <li><a href="#">壳杏仁 23元/500克</a></li>
-                <li><a href="#">壳杏仁 23元/500克 </a></li>
-                <li><a href="#">纸皮巴旦木龙果</a></li>
-                <li><a href="#">壳杏仁 23元/500克</a></li>
+            <ul class="ulclass">
+
             </ul>
             <h2 class="detail">纸皮巴旦木龙果</h2>
             <ul class="leftLink">
@@ -129,7 +183,45 @@
         <!--pro_price start -->
         <div class="pro_price">
             <dl>
-                <dt><img src="${ctx}/images/T1.jpg" width="310" height="310"/></dt>
+                <dd>
+                    <table style="width: 440px;height: 340px">
+                        <tr>
+                            <td>
+                                <img src="${ctx}/images/T1.jpg" width="310" height="310"/>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;购买数量:<img
+                                    class="jian" src="${ctx}/images/jian.png" alt=""/><input
+                                    class="inputnum" value="1" type="text" style="width: 20px"
+                                    onkeypress="return IsNum(event)"/>
+                                <script language="javascript" type="text/javascript">
+                                    function IsNum(e) {
+                                        var k = window.event ? e.keyCode : e.which;
+                                        if (((k >= 48) && (k <= 57)) || k == 8 || k == 0) {
+                                        } else {
+                                            if (window.event) {
+                                                window.event.returnValue = false;
+                                            }
+                                            else {
+                                                e.preventDefault(); //for firefox
+                                            }
+                                        }
+                                    }
+                                </script>
+                                <img class="add"
+                                     src="${ctx}/images/add.png"
+                                     alt=""/></td>
+                        </tr>
+                        <tr>
+                            <td style="margin-left: 50px ;width: 156px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img
+                                    class="goumai" src="${ctx}/images/mai.gif" width="100" height="20"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <img class="gouwuche"
+                                     src="${ctx}/images/jiaru.gif" width="100" height="20"/></td>
+                        </tr>
+                    </table>
+                </dd>
                 <dd>
                     <table height="413" border="1" cellpadding="0" cellspacing="0"
                            style="border-collapse:collapse; border:#ccc 1px solid;">
@@ -137,14 +229,16 @@
                         <tr>
                             <td valign="top" align="middle" width="323" colspan="2"
                                 height="30"><font
-                                    color="#bb1213"><strong>实心眼 特级薄皮奶香味 巴旦木 250g</strong></font></td>
+                                    color="#bb1213"><strong class="name"
+                                                            data="${merchandis.merchandisename}">${merchandis.merchandisename}</strong></font>
+                            </td>
                         </tr>
                         <tr>
                             <td valign="top" align="right" width="111"
                                 height="28">市 场 价：
                             </td>
                             <td valign="top" width="212" height="28"><span
-                                    style="text-decoration:line-through; font-size:14px;color:#666; font-weight:bold;">￥25.0</span>
+                                    style="text-decoration:line-through; font-size:14px;color:#666; font-weight:bold;">￥${merchandis.price}+10</span>
                             </td>
                         </tr>
                         <tr>
@@ -152,13 +246,15 @@
                                 height="28">网 站 价：
                             </td>
                             <td valign="top" width="212" height="28"><span
-                                    style=" font-size:14px;color:#c00; font-weight:bold;">￥18.0</span></td>
+                                    class="price" data="${merchandis.price}"
+                                    style=" font-size:14px;color:#c00; font-weight:bold;">￥${merchandis.price}</span>
+                            </td>
                         </tr>
                         <tr>
                             <td valign="top" align="right" width="111"
                                 height="28">规&nbsp;&nbsp;&nbsp; 格：
                             </td>
-                            <td valign="top" width="212" height="28">500g</td>
+                            <td valign="top" width="212" height="28">${merchandis.spec}</td>
                         </tr>
                         <tr>
                             <td valign="top" align="right" width="111" height="28">批 发 价：</td>
@@ -167,39 +263,53 @@
                             </td>
                         </tr>
                         <tr>
-                            <td align="right" width="111" height="5"></td>
-                            <td width="212" height="5"></td>
+                            <td valign="top" align="right" width="111"
+                                height="28">状 态：
+                            </td>
+                            <td valign="top" width="212" height="28"><span
+                                    style=" font-size:14px;color:#c00; font-weight:bold;">${status}</span></td>
                         </tr>
                         <tr>
                             <td valign="top" align="right" width="111"
-                                height="21">内&nbsp;&nbsp;&nbsp; 配：
+                                height="28">库 存：
                             </td>
-                            <td valign="top" width="212" height="169" rowspan="2">
-                                <table height="32" cellspacing="0" cellpadding="0"
-                                       width="100%" border="0" style="border:none;">
-                                    <tbody>
-                                    <tr>
-                                        <td
-                                                valign="top">750g有机全麦粉<br/>
-                                            750g黄金玉米粉<br/>
-                                            750g黄豆粉<br/>
-                                            750g地瓜粉<br/>
-                                            750g高粱粉<br/>
-                                            750g豌豆粉<br/>
-                                            750g窝窝头粉<br/>
-                                            750g玉米糁
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </td>
+                            <td class="stocknum" valign="top" width="212" height="28" data="${num}"><span
+                                    style=" font-size:14px;color:#c00; font-weight:bold;">${num}</span></td>
                         </tr>
+                        <%--<tr>--%>
+                        <%--<td align="right" width="111" height="5"></td>--%>
+                        <%--<td width="212" height="5"></td>--%>
+                        <%--</tr>--%>
+                        <%--<tr>--%>
+                        <%--<td valign="top" align="right" width="111"--%>
+                        <%--height="21">内&nbsp;&nbsp;&nbsp; 配：--%>
+                        <%--</td>--%>
+                        <%--<td valign="top" width="212" height="169" rowspan="2">--%>
+                        <%--<table height="32" cellspacing="0" cellpadding="0"--%>
+                        <%--width="100%" border="0" style="border:none;">--%>
+                        <%--<tbody>--%>
+                        <%--<tr>--%>
+                        <%--<td--%>
+                        <%--valign="top">750g有机全麦粉<br/>--%>
+                        <%--750g黄金玉米粉<br/>--%>
+                        <%--750g黄豆粉<br/>--%>
+                        <%--750g地瓜粉<br/>--%>
+                        <%--750g高粱粉<br/>--%>
+                        <%--750g豌豆粉<br/>--%>
+                        <%--750g窝窝头粉<br/>--%>
+                        <%--750g玉米糁--%>
+                        <%--</td>--%>
+                        <%--</tr>--%>
+                        <%--</tbody>--%>
+                        <%--</table>--%>
+                        <%--</td>--%>
+                        <%--</tr>--%>
+                        <%--<tr>--%>
+                        <%--<td width="111" height="147">　</td>--%>
+                        <%--</tr>--%>
                         <tr>
-                            <td width="111" height="147">　</td>
-                        </tr>
-                        <tr>
-                            <td align="middle" width="323" colspan="2"
-                                height="89"><span style="font-size:20px; color:#f00; font-weight:bold;">批发价热线：0315-3876584</span>
+                            <td align="middle" width="323" colspan="3"
+                                height="70"><span style="font-size:20px; color:#f00; font-weight:bold;">批发价热线：0315-3876584</span>
                             </td>
                         </tr>
                         </tbody>
@@ -213,33 +323,13 @@
             <h3>--详细介绍--</h3>
             <!--pro_detail_con start -->
             <div class="pro_detail_con">
-                <p><strong>产品信息:</strong>所有散装东东在包装前都会经过严格挑拣，挑拣掉空籽、僵籽、空壳等，很难做到100%，坏籽的比率一般最多2-3％。是良好的蛋白质资源之一，同时也是一种极好的甲型生育酚型维生素E的来源，甲型生育酚是维生素E的最有效型态。美国杏仁还能提供镁、膳食纤维、钾、钙、磷和铁等。并且，美国杏仁中所含脂肪的近70%是有益于健康的单不饱和脂肪，研究表明其有助于保持一个健康的胆固醇水平。
-                </p>
-
-                <p>
-                    此外，杏仁和其他坚果中含有植物化学物质，这些植物成分可以有力地抗衡心脏病、中风以及其他慢性疾病。在树坚果家族中，美国杏仁和中国杏仁是两种不同的坚果，虽然在中文里它们都被称为杏仁，但两者的营养成分不同，功效也不同。美国大杏仁对人们来说总是有些黄金情节，爱，昂贵，奢侈，处于巨大压力，亚健康状态，辛苦劳累的我们，更应该爱惜自己，一瓶纽崔莱可以买10斤大杏仁了，而十分之一价格换来的是家人的健康和美味。
-                </p>
-
-                <p>
-                    此外，杏仁和其他坚果中含有植物化学物质，这些植物成分可以有力地抗衡心脏病、中风以及其他慢性疾病。在树坚果家族中，美国杏仁和中国杏仁是两种不同的坚果，虽然在中文里它们都被称为杏仁，但两者的营养成分不同，功效也不同。美国大杏仁对人们来说总是有些黄金情节，爱，昂贵，奢侈，处于巨大压力，亚健康状态，辛苦劳累的我们，更应该爱惜自己，一瓶纽崔莱可以买10斤大杏仁了，而十分之一价格换来的是家人的健康和美味。
-                </p>
-
-                <p>
-                    此外，杏仁和其他坚果中含有植物化学物质，这些植物成分可以有力地抗衡心脏病、中风以及其他慢性疾病。在树坚果家族中，美国杏仁和中国杏仁是两种不同的坚果，虽然在中文里它们都被称为杏仁，但两者的营养成分不同，功效也不同。美国大杏仁对人们来说总是有些黄金情节，爱，昂贵，奢侈，处于巨大压力，亚健康状态，辛苦劳累的我们，更应该爱惜自己，一瓶纽崔莱可以买10斤大杏仁了，而十分之一价格换来的是家人的健康和美味。
-                </p>
-
-                <p><strong>公司主营项目：</strong>中秋月饼 端午粽子 年货礼品 有机食品 干果杂粮 水果蔬菜 山菌海鲜 橄榄油 柴鸡蛋等成套礼品</p>
-
-                <p><strong>产品价格低:</strong>我们已与国内几十家正规大型工厂达成了共同开发、设计、生产、销售礼品的合作协议，最直接的礼品生产加工渠道以及薄利多销的经营准则使我们的礼品价格做到最低。
-                </p>
-
-                <p><strong>我们的客户包括:</strong>平安保险 光大银行 联想网御 爱国者 新雅迪传媒……北京乐购礼品团购网欢迎您的到来,公司服务于北京多家知名企事业单位。渠道市场京北京
-                    贵宾贵宾服务百分百。乐购为您提供礼品团购全攻略，专业的服务永远是我公司的经营宗旨。您的支持和鼓励都将成为我们前进的方向。为您提供专业的礼品团购服务，确保你的礼品团购，买的更放心。</p>
+                <p><strong>产品信息:</strong>${merchandis.describe}</p>
             </div>
             <!--pro_detail_con end -->
         </div>
         <!--pro_detail end -->
         <br class="spacer"/>
+
     </div>
     <!--mid end -->
     <br class="spacer"/>

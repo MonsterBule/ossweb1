@@ -15,6 +15,8 @@
     <title>启奥</title>
     <link href="${ctx}/css/style.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="${ctx}/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript"> var chandisename = '${chandisename}'</script>
+
     <script type="text/javascript">
         $(document).ready(function () {
 //         var a=   function sleep(numberMillis) {
@@ -38,10 +40,13 @@
 //                    , 5000);
             var pageIndex = '';
             var aa = function (pageIndex) {
+                if ((typeof(chandisename) == "undefined") || (chandisename == "null")) {
+                    chandisename = null;
+                }
                 $.ajax({
                     type: "GET",
-                    url: "/list/list?page=" + pageIndex,
-                    data: {merchandisename: $("#MerchandiseName").val(), price: $("#Price").val()},
+                    url: "/list/list?page=" + pageIndex + '&name=' + chandisename,
+                    //   data: {merchandisename: $("#MerchandiseName").val(), price: $("#Price").val()},
                     dataType: "json",
                     success: function (data) {
                         $('.hotsale').empty();   //清空hotsale里面的所有内容
@@ -172,8 +177,6 @@
                                 }
                                 pageIndex = Operation;
                                 bb(pageIndex);
-
-
                             });
                         }
                     })

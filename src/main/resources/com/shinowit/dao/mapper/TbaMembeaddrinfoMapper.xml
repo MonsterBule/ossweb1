@@ -365,4 +365,11 @@
     <select id="selectMaxPrimaryKeyValue" resultType="java.lang.Integer">
         select max(ID) from TBa_MembeAddrInfo
     </select>
+
+
+    <select id="selectByUsernmaeASC" resultMap="BaseResultMap" parameterType="java.lang.String">
+
+        select * from TBa_MembeAddrInfo where UserName =#{name,jdbcType=VARCHAR} order by ID asc
+
+    </select>
 </mapper>

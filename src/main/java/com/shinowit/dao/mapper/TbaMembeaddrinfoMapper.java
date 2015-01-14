@@ -2,8 +2,9 @@ package com.shinowit.dao.mapper;
 
 import com.shinowit.entity.TbaMembeaddrinfo;
 import com.shinowit.entity.TbaMembeaddrinfoExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface TbaMembeaddrinfoMapper {
     /**
@@ -97,4 +98,7 @@ public interface TbaMembeaddrinfoMapper {
     List<TbaMembeaddrinfo> selectPage(TbaMembeaddrinfoExample example);
 
     Integer selectMaxPrimaryKeyValue();
+
+
+    List<TbaMembeaddrinfo> selectByUsernmaeASC(String nmae);
 }

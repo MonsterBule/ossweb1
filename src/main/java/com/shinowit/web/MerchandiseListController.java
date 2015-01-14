@@ -72,7 +72,7 @@ public class MerchandiseListController {
         String sql2 = "select count(*)as totalnum from TMe_MerchandiseInfo where 1=1";
         List<Map<String, Object>> data_list;
         int page_total = 0;
-        if (name != null) {
+        if ((name != null) && (!name.equals("null")) && (name.length() > 0)) {
             try {
                 byte[] bb = name.getBytes("ISO-8859-1");
                 name = new String(bb, "UTF-8");
@@ -97,6 +97,7 @@ public class MerchandiseListController {
         result_map.put("num", page_total);
         return result_map;
     }
+
     @RequestMapping("/list1")
     public String list2(Model model) {
         String sql2 = "select count(*)as totalnum from TMe_MerchandiseInfo where 1=1";
@@ -139,7 +140,6 @@ public class MerchandiseListController {
         a = jt.queryForInt(sql2);
         model.addAttribute("totalnum", a);
         map = jt.queryForList(sql, new Object[]{1}, new int[]{Types.INTEGER});
-
         model.addAttribute("list", map);
         model.addAttribute("num", a);
         return model;

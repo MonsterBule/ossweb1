@@ -34,35 +34,41 @@
                              targetPackage="com.shinowit.dao.mapper" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
-        <!--商品分类表-->
-        <table tableName="TMe_MerchandiseCInfo">
-            <generatedKey column="ID" sqlStatement="SqlServer"
-                          identity="true"/>
-        </table>
-        <!--商品表-->
-        <table tableName="TMe_MerchandiseInfo">
-            <generatedKey column="ID" sqlStatement="SqlServer"
-                          identity="true"/>
-        </table>
-        <!--地址-->
-        <table tableName="TBa_MembeAddrInfo">
-            <generatedKey column="ID" sqlStatement="SqlServer"
-                          identity="true"/>
-        </table>
-        <!--会员表-->
-        <table tableName="TBa_MemberInfo">
-            <generatedKey column="ID" sqlStatement="SqlServer"
-                          identity="true"/>
-        </table>
-        <!--促销状态-->
-        <table tableName="TMe_ProStatusInfo">
-            <generatedKey column="ProStatusID" sqlStatement="SqlServer"
-                          identity="true"/>
-        </table>
+        <!--&lt;!&ndash;商品分类表&ndash;&gt;-->
+        <!--<table tableName="TMe_MerchandiseCInfo">-->
+        <!--<generatedKey column="ID" sqlStatement="SqlServer"-->
+        <!--identity="true"/>-->
+        <!--</table>-->
+        <!--&lt;!&ndash;商品表&ndash;&gt;-->
+        <!--<table tableName="TMe_MerchandiseInfo">-->
+        <!--<generatedKey column="ID" sqlStatement="SqlServer"-->
+        <!--identity="true"/>-->
+        <!--</table>-->
+        <!--&lt;!&ndash;地址&ndash;&gt;-->
+        <!--<table tableName="TBa_MembeAddrInfo">-->
+        <!--<generatedKey column="ID" sqlStatement="SqlServer"-->
+        <!--identity="true"/>-->
+        <!--</table>-->
+        <!--&lt;!&ndash;会员表&ndash;&gt;-->
+        <!--<table tableName="TBa_MemberInfo">-->
+        <!--<generatedKey column="ID" sqlStatement="SqlServer"-->
+        <!--identity="true"/>-->
+        <!--</table>-->
+        <!--&lt;!&ndash;促销状态&ndash;&gt;-->
+        <!--<table tableName="TMe_ProStatusInfo">-->
+        <!--<generatedKey column="ProStatusID" sqlStatement="SqlServer"-->
+        <!--identity="true"/>-->
+        <!--</table>-->
         <!--库存-->
-        <table tableName="TMe_StockInfo">
-            <generatedKey column="ID" sqlStatement="SqlServer"
-                          identity="true"/>
+        <!--<table tableName="TMe_StockInfo">-->
+        <!--<generatedKey column="ID" sqlStatement="SqlServer"-->
+        <!--identity="true"/>-->
+        <!--</table>-->
+        <table tableName="city">
+        </table>
+        <table tableName="province">
+        </table>
+        <table tableName="district">
         </table>
     </context>
 </generatorConfiguration>
