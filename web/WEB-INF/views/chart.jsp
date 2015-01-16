@@ -103,10 +103,10 @@
 
         <p class="navLeft"></p>
         <ul>
-            <li><a href="../index/index.html" class="hover">首页</a></li>
+            <li><a href="${ctx}/mercahndiseclass/list" class="hover">首页</a></li>
             <li><a href="#">关于我们</a></li>
             <li><a href="#">在线客服</a></li>
-            <li class="chart"><a href="chart.html">购物车</a></li>
+            <li class="chart"><a href="${ctx}/chart/list">购物车</a></li>
         </ul>
         <p class="navRight"></p>
 

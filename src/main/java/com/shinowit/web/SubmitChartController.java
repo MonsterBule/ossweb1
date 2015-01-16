@@ -4,12 +4,10 @@ package com.shinowit.web;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shinowit.dao.mapper.ProvinceMapper;
 import com.shinowit.dao.mapper.TbaMembeaddrinfoMapper;
-import com.shinowit.entity.Province;
-import com.shinowit.entity.TbaMembeaddrinfo;
-import com.shinowit.entity.TbaMembeaddrinfoExample;
-import com.shinowit.entity.TbaMemberinfo;
+import com.shinowit.entity.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -52,7 +50,7 @@ public class SubmitChartController {
     }
 
     @RequestMapping("/location")
-    public String location(HttpServletRequest request, Model model) {
+    public String location(@ModelAttribute("address") TbaMembeaddrinfo tbaMembeaddrinfo, HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
 
         TbaMembeaddrinfoExample ex = new TbaMembeaddrinfoExample();
@@ -60,12 +58,12 @@ public class SubmitChartController {
         //TbaMemberinfo user1 = (TbaMemberinfo) session.getAttribute("user");
         TbaMemberinfo user = new TbaMemberinfo();
         user.setUsername("user1");
-        String a = request.getRealPath("/");
-        System.out.println(a);
 //        ex.createCriteria().andUsernameEqualTo(user.getUsername());
         List<TbaMembeaddrinfo> list = addrinfodao.selectByUsernmaeASC(user.getUsername());
         model.addAttribute("chartinfolist", list);
-        List<Province> provinceslist = provincedao.selectall();
+        ProvinceExample exam = new ProvinceExample();
+        exam.createCriteria();
+        List<Province> provinceslist = provincedao.selectByExample(exam);
         model.addAttribute("province", provinceslist);
 
         return "chart01";

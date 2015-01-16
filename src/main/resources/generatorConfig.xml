@@ -59,16 +59,24 @@
         <!--<generatedKey column="ProStatusID" sqlStatement="SqlServer"-->
         <!--identity="true"/>-->
         <!--</table>-->
-        <!--库存-->
+        <!--&lt;!&ndash;库存&ndash;&gt;-->
         <!--<table tableName="TMe_StockInfo">-->
         <!--<generatedKey column="ID" sqlStatement="SqlServer"-->
         <!--identity="true"/>-->
         <!--</table>-->
-        <table tableName="city">
-        </table>
-        <table tableName="province">
-        </table>
-        <table tableName="district">
+        <!--<table tableName="city">-->
+        <!--</table>-->
+        <!--<table tableName="province">-->
+        <!--</table>-->
+        <!--<table tableName="district">-->
+        <!--</table>-->
+        <!--订单-->
+        <!--<table tableName="TMe_OrderInfo">-->
+        <!--</table>-->
+        <!--订单明细-->
+        <table tableName="TMe_OrderDetailsInfo">
+            <generatedKey column="ID" sqlStatement="SqlServer"
+                          identity="true"/>
         </table>
     </context>
 </generatorConfiguration>

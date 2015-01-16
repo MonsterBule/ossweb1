@@ -128,4 +128,85 @@ function meradd() {
 
     })
 };
-//session失效跳转
+$(document).ready(function () {
+    $('#provinceID').change(function () {
+        var id = this.value;
+        $.ajax({
+            url: '/adderss/city',
+            type: 'get',
+            data: {id: id},
+            success: function (msg) {
+                $('#CityID').empty();
+                $('#AreaID').empty();
+                var a = 0;
+                var i = msg.length;
+                var html = "";
+                for (a; a < i; a++) {
+                    html += "<option value=" + msg[a].id + " >" + msg[a].name + "</option>";
+                }
+                $('#CityID').html("<option value=\"+nun+\" >--请选择--</option>" + html);
+                $('#AreaID').html("<option value=\"+nun+\" >--请选择--</option>");
+            }
+        });
+    })
+
+    $('#CityID').change(function () {
+        var id = this.value;
+        $.ajax({
+            url: '/adderss/district',
+            type: 'get',
+            data: {id: id},
+            success: function (msg) {
+
+
+                $('#AreaID').empty();
+                var a = 0;
+                var i = msg.length;
+                var html = "";
+                for (a; a < i; a++) {
+                    html += "<option value=" + msg[a].id + " >" + msg[a].name + "</option>";
+                }
+                $('#AreaID').html("<option value=\"+nun+\" >--请选择--</option>" + html);
+            }
+        });
+    })
+});
+
+function addAddress() {
+    $(document).ready(function () {
+
+
+    });
+
+}
+function selectAddress() {
+
+    var addrelist = new Array();
+    $(".uniquespanid input[type=radio]:checked").each(function () {
+            var adderssid = $(this).attr("recmanid");
+            var address = $(this).attr("address");
+            var postcode = $(this).attr("postcode");
+            var tel = $(this).attr("tel");
+            var recman = $(this).attr("recman");
+
+            var addressinfo = new MerAdd(adderssid, recman, address, postcode, tel);
+            addrelist.push(addressinfo);
+        }
+    );
+
+
+    if (addrelist.length < 1) {
+        alert("请选地址")
+        return;
+    }
+    var content = $.toJSON(addrelist);
+    $.ajax({
+        type: "post",
+        url: "/orderinfo/insert",
+        data: {data: content},
+        dataType: "json",
+        success: function () {
+            window.location.href = '${ctx}/submitchart/location';
+        }
+    })
+}

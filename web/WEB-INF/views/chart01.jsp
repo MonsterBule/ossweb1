@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -18,8 +19,13 @@
     <link href="${ctx}/css/colorbox.css" rel="stylesheet" type="text/css"/>
     <link href="${ctx}/css/gmxx.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="${ctx}/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="${ctx}/js/jquery-json.js"></script>
     <script type="text/javascript" src="${ctx}/js/chart1.js"></script>
     <script type="text/javascript" src="${ctx}/js/jquery.colorbox.js"></script>
+    <script type="text/javascript">
+
+
+    </script>
 
 <body>
 <div id="box">
@@ -32,10 +38,10 @@
 
     <p class="navLeft"></p>
     <ul>
-        <li><a href="../index/index.html" class="hover">首页</a></li>
+        <li><a href="${ctx}/mercahndiseclass/list" class="hover">首页</a></li>
         <li><a href="#">关于我们</a></li>
         <li><a href="#">在线客服</a></li>
-        <li class="chart"><a href="chart.html">购物车</a></li>
+        <li class="chart"><a href="${ctx}/chart/list">购物车</a></li>
     </ul>
     <p class="navRight"></p>
 
@@ -93,7 +99,7 @@
                         id="needPointNumber">0</SPAN>分，请修改购物车中的积分换购产品。
                 </DIV>
                 <IMG id="imgPointError"
-                     src="${ctx}/images/jifenbuzhu.gif" useMap=#Map border=0>
+                     useMap=#Map border=0>
                 <MAP id="Map"
                      name=Map>
                     <AREA shape=RECT coords=962,9,972,19
@@ -127,12 +133,12 @@
                     <span style="font-size: 12px;float: left;width: 939px;margin-left: 0;" id="uniquespanid${add.id}"
                           class="uniquespanid">
                          <input type="radio" style="width: 15px;height: 15px;float: left;margin: 3px -38px 0 -16px;"
-                                id="newaddressid${add.id}" name="newaddressid" recman="${add.recman}"
+                                recmanid="${add.id}" recman="${add.recman}"
                                 address="${add.recaddress}" postcode="${add.postcode}" tel="${add.tel}"/>
                         <label style="color: cornflowerblue">收货人:</label>${add.recman}| <label
                             style="color: cornflowerblue">收货地址:</label>${add.recaddress}| <label
-                            style="color: cornflowerblue">邮政编码:</label>${meradd.postcode}|<label
-                            style="color: cornflowerblue">固定电话:${add.tel}</label> <label style="color: cornflowerblue">移动电话:</label>${meradd.tel}
+                            style="color: cornflowerblue">邮政编码:</label>${add.postcode}|<label
+                            style="color: cornflowerblue">固定电话:${add.tel}</label> <label style="color: cornflowerblue">移动电话:</label>
                             <span class="addDeleteSty addFontCol" style="float: right;padding: 0px 0px 21px 0px"><a
                                     href="#"><span id="addFontCol" class="addFontCol"
                                                    onclick="updateclick(${add.id},'${add.recman}','${add.recaddress}','${add.postcode}','${add.tel}')">修改</span></a><span
@@ -144,7 +150,7 @@
                         </c:forEach>
                         <div align="center">
                             <img
-                                    src="${ctx}/images/button_pszADd.gif" border="0" onclick="#"/>
+                                    src="${ctx}/images/button_pszADd.gif" border="0" onclick="selectAddress()"/>
                         </div>
                         <div style="height:25px!important;color:#fff;">dddddddddddd</div>
                     </div>
@@ -156,6 +162,7 @@
                                     <td class="reusableColor5 xxSty01" align="left" height="30">&nbsp;&nbsp;&nbsp;&nbsp;请输入新的
                                         <strong>配送地址</strong></td>
                                 </tr>
+                                <form:form action="${ctx}/reg/reg" method="post" modelAttribute="address">
                                 <tr>
                                     <td align="center" valign="top">
                                         <ul class="psAdd" align="left">
@@ -163,29 +170,34 @@
                                                 <p class="pSty01" align="right">收货人姓名：</p>
 
                                                 <p class="pSty02 reusableColor3" align="left">
-                                                    <input name="Name" id="Name" size="22"
-                                                           onchange="ChecktheForm_Name()" type="text"/>
+                                                    <form:input path="recman" id="Name" size="22"
+                                                                onchange="ChecktheForm_Name()"></form:input>
+                                                        <%--<input name="Name" id="Name" size="22"--%>
+                                                        <%--onchange="ChecktheForm_Name()" type="text"/>--%>
                                                     &nbsp;&nbsp;<span class="reusableColor4">*</span>&nbsp;&nbsp;
                                                     请准确填写真实姓名，以便确保商品准确无误送达。</p>
                                             </li>
                                             <li class="conLi1"><span class="errorstring" id="errorName"></span></li>
                                             <li>
                                                 <p class="pSty01" align="right">配送省份/直辖市：</p>
-                                                <%--<form:select path="id" items="${province}" itemLabel="name" itemValue="id">--%>
-                                                <%--<form:option value=""></form:option>--%>
-                                                <%--</form:select>--%>
-                                                <select id="provinceID" name="provinceID">
-                                                    <option selected="selected" value="">--请选择--</option>
-                                                </select>
+
 
                                                 <p>
-                                                    <%--<select id="provinceID" name="provinceID">--%>
-                                                    <%--<option selected="selected" value="">--请选择--</option>--%>
-                                                    <%--<option selected="selected" value="">--请选择--</option>--%>
-                                                    <%--</select>--%>
+                                                    <select id="provinceID" name="provinceID">
+                                                        <c:forEach items="${province}" var="pro">
+                                                            <option value="${pro.id}">${pro.name}</option>
+                                                        </c:forEach>
+                                                        <option selected="nun">--请选择--</option>
+                                                    </select>
 
 
-                                                    &nbsp;&nbsp;市：aaaaaaa
+                                                        <%--<form:select path="" id="provinceID"  name="provinceID">--%>
+                                                        <%--<form:option value="-" label="--Please Select"/>--%>
+                                                        <%--<form:options items="${province}" itemValue="id"--%>
+                                                        <%--itemLabel="name"/>--%>
+                                                        <%--</form:select>--%>
+
+                                                    &nbsp;&nbsp;市：
                                                     <select id="CityID" name="CityID">
                                                         <option selected="selected" value="">--请选择--</option>
                                                     </select>
@@ -200,9 +212,12 @@
                                                 <p class="pSty01" align="right">详细地址：</p>
 
                                                 <p class="pSty02">
-                                                    <input name="Address" id="Address" size="40"
-                                                           onchange="ChecktheForm_Address()" maxlength="500"
-                                                           type="text"/>
+                                                    <form:input path="recaddress" id="Address" size="40"
+                                                                onchange="ChecktheForm_Address()"
+                                                                maxlength="500"></form:input>
+                                                        <%--<input name="Address" id="Address" size="40"--%>
+                                                        <%--onchange="ChecktheForm_Address()" maxlength="500"--%>
+                                                        <%--type="text"/>--%>
                                                     &nbsp;&nbsp;<span class="reusableColor4">*</span>&nbsp;&nbsp; <br/>
                                                     <span class="fontSty reusableColor3">862城市送货上门，货到付款。&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
                                                             class="reusableColor1"><a href="#" target="_blank">
@@ -213,8 +228,10 @@
                                                 <p class="pSty01" align="right">邮政编码：</p>
 
                                                 <p class="pSty02 reusableColor3">
-                                                    <input name="Zip" id="Zip" size="7" onchange="ChecktheForm_Zip()"
-                                                           type="text"/>
+                                                    <form:input path="postcode" id="Zip" size="7"
+                                                                onchange="ChecktheForm_Zip()"></form:input>
+                                                        <%--<input name="Zip" id="Zip" size="7" onchange="ChecktheForm_Zip()"--%>
+                                                        <%--type="text"/>--%>
                                                     &nbsp;&nbsp;<span class="reusableColor4">*</span>&nbsp;&nbsp; <span
                                                         id="SetPostalCode"></span></p>
                                             </li>
@@ -223,7 +240,8 @@
                                                 <p class="pSty01" align="right">固定电话：</p>
 
                                                 <p class="pSty02">
-                                                    <input name="Tel" id="Tel" onchange="ChecktheForm_Tel()" size="12"
+
+                                                <input name="Tel" id="Tel" onchange="ChecktheForm_Tel()" size="12"
                                                            type="text"/>
                                                     <span id="PhoneCode"></span></p>
                                             </li>
@@ -232,17 +250,31 @@
                                                 <p class="pSty01" align="right">手机：</p>
 
                                                 <p class="pSty02 reusableColor3">
-                                                    <input name="Mobile" id="Mobile" size="22"
-                                                           onchange="ChecktheForm_Tel()" type="text"/>
+                                                    <form:input path="tel" id="Mobile" size="22"
+                                                                onchange="ChecktheForm_Tel()"></form:input>
+                                                        <%--<input name="Mobile" id="Mobile" size="22"--%>
+                                                        <%--onchange="ChecktheForm_Tel()" type="text"/>--%>
                                                     手机与固定电话至少有一项必填 </p>
                                             </li>
                                             <li class="conLi6"><span id="errorMobile"></span></li>
-                                            <li class="conLi7"><span class="addSpanSty"><a href="chart02.html"><img
-                                                    src="${ctx}/images/button_pszADd.gif" alt="" border="0"
-                                                    onclick=""/></a></span></li>
+                                            <li class="conLi7"><span class="addSpanSty">
+
+                                                 <input
+                                                         style="width:91px; height:25px; border:0;  background-image:url(${ctx}/images/button_pszADd.gif)"
+                                                         type="submit" value="" border="0" onclick="">
+
+
+
+                                                <%--<a href="chart02.html"><img--%>
+                                                    <%--src="${ctx}/images/button_pszADd.gif" alt="" border="0"--%>
+                                                    <%--onclick=""/>--%>
+                                                <%--</a>--%>
+                                            </span></li>
                                         </ul>
                                     </td>
                                 </tr>
+
+                                </form:form>
                                 <tr class="trSty01" bgcolor="#dcdfe5">
                                     <td class="reusableColor3 xxSty01" align="left" height="26">&nbsp;&nbsp;&nbsp;&nbsp;接下来您还需要选择
                                         配送方式、支付方式、送货时间。
